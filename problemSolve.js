@@ -66,7 +66,7 @@ function  calculateSleepTime( times ) {
     }
     let sum = 0;
     for (let sec of times) {
-        if (isNaN(sec)) {
+        if (typeof sec !== "number") {
             return "Invalid";
         }
         sum += sec;
@@ -77,8 +77,8 @@ function  calculateSleepTime( times ) {
         minute: 0,
         second: 0,
     }
-    time.hour = Math.ceil(sum / 3600);
+    time.hour = Math.floor(sum / 3600);
+    time.minute = Math.floor((sum % 3600) / 60);
+    time.second = (sum % 3600) % 60;
     return time;
 }
-
-console.log(calculateSleepTime([1000, 499, 519, 300]));
